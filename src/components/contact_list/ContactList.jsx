@@ -1,11 +1,31 @@
 import { ContainerItem, ContainerList } from './ContactList.styled';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/contactsSlice';
+import { getContacts, getFilter } from 'redux/selectors';
 
-const ContactList = ({ contacts, onDelete }) => {
+const ContactList = () => {
+  const filter = useSelector(getFilter);
+  console.log(filter);
+  const contacts = useSelector(getContacts);
+  console.log(contacts);
+  const dispatch = useDispatch();
+  console.log(dispatch);
+
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
+  const onDelete = id => dispatch(deleteContact(id));
+
+  // const onDelete = id => {
+  //   console.log(id);
+  // };
+
   return (
     <ContainerList>
-      {contacts.map(({ id, name, number }) => (
+      {filteredContacts.map(({ id, name, number }) => (
         <ContainerItem key={id}>
           {name}: {number}
           <AiOutlineCloseCircle onClick={() => onDelete({ id })} />
@@ -13,12 +33,6 @@ const ContactList = ({ contacts, onDelete }) => {
       ))}
     </ContainerList>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string.isRequired))
-    .isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;
