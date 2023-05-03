@@ -14,15 +14,17 @@ const ContactForm = () => {
   const handleOnSubmit = event => {
     event.preventDefault();
     const form = event.target;
+    const {
+      elements: { name, number },
+    } = form;
     const isExist = contacts.find(
-      contact =>
-        contact.name.toLowerCase() === form.elements.name.value.toLowerCase()
+      contact => contact.name.toLowerCase() === name.value.toLowerCase()
     );
     if (isExist) {
       alert(`${name} is already in contacts`);
       return;
     }
-    dispatch(addContact(form.elements.name.value, form.elements.number.value));
+    dispatch(addContact(name.value, number.value));
     setName('');
     setNumber('');
     form.reset();
