@@ -1,5 +1,4 @@
 import { ContainerItem, ContainerList } from './ContactList.styled';
-// import PropTypes from 'prop-types';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact } from 'redux/contactsSlice';
@@ -19,16 +18,12 @@ const ContactList = () => {
 
   const onDelete = id => dispatch(deleteContact(id));
 
-  // const onDelete = id => {
-  //   console.log(id);
-  // };
-
   return (
     <ContainerList>
       {filteredContacts.map(({ id, name, number }) => (
         <ContainerItem key={id}>
           {name}: {number}
-          <AiOutlineCloseCircle onClick={() => onDelete({ id })} />
+          <AiOutlineCloseCircle onClick={() => onDelete(id)} />
         </ContainerItem>
       ))}
     </ContainerList>

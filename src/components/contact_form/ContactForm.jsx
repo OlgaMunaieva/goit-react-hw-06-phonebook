@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ContainerForm, ContainerInput } from './ContactForm.styled';
-// import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
@@ -24,7 +23,6 @@ const ContactForm = () => {
       dispatch(
         addContact(form.elements.name.value, form.elements.number.value)
       );
-      //!localStorage.setItem('contacts', JSON.stringify(contacts));
     } else {
       alert(`${name} is already in contacts`);
     }
@@ -36,20 +34,6 @@ const ContactForm = () => {
   const handleChangeName = event => setName(event.target.value);
 
   const handleChangeNumber = event => setNumber(event.target.value);
-
-  // const resetForm = (name, number) => {
-  //   name.value = '';
-  //   number.value = '';
-  //   setName('');
-  //   setNumber('');
-  // };
-
-  // const handleOnSubmit = event => {
-  //   event.preventDefault();
-  //   const { name, number } = event.target.elements;
-  //   addContact(name.value, number.value);
-  //   resetForm(name, number);
-  // };
 
   return (
     <ContainerForm action="" onSubmit={handleOnSubmit}>
@@ -82,9 +66,5 @@ const ContactForm = () => {
     </ContainerForm>
   );
 };
-
-// ContactForm.propTypes = {
-//   addContact: PropTypes.func.isRequired,
-// };
 
 export default ContactForm;
